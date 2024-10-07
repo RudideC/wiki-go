@@ -23,13 +23,13 @@ type LinkData struct {
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: wiki-go <search_term>")
+		utils.HelpMessage()
 		os.Exit(0)
 	}
 	switch strings.ToLower(os.Args[1]) {
 	case "-s":
 		fallthrough
-	case "-search":
+	case "--search":
 		searchTerm := strings.Join(os.Args[2:], "_")
 		url := baseURL + "/wiki/" + searchTerm
 		if isList(url) {
@@ -37,8 +37,15 @@ func main() {
 		} else {
 			readSite(url, getPageTitle(url))
 		}
-	case "help":
-		fmt.Println("Usage: wiki-go <search_term>")
+	case "-h":
+		fallthrough
+	case "--help":
+		utils.HelpMessage()
+		os.Exit(0)
+	case "-v":
+		fallthrough
+	case "--version":
+		utils.VersionMessage()
 		os.Exit(0)
 	default:
 		searchTerm := strings.Join(os.Args[1:], "_")
