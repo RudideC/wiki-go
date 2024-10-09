@@ -1,4 +1,5 @@
 wiki-go
+*.zip
 
 # MacOS
 .DS_Store
